@@ -1,0 +1,44 @@
+Source: qtstyleplugins-src
+Section: libs
+Priority: optional
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Fathi Boudra <fabo@debian.org>,
+           Modestas Vainius <modax@debian.org>,
+           Sune Vuorela <debian@pusling.com>,
+           Pino Toscano <pino@debian.org>,
+           Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>,
+           Felix Geyer <fgeyer@debian.org>,
+           Timo Jyrinki <timo@debian.org>,
+           Dmitry Shachnev <mitya57@debian.org>
+Build-Depends: debhelper (>= 9),
+               libegl1-mesa-dev,
+               libgtk2.0-dev,
+               libmtdev-dev,
+               libx11-dev,
+               pkg-kde-tools,
+               qtbase5-private-dev,
+Standards-Version: 3.9.8
+Homepage: http://qt-project.org/
+Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtstyleplugins.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-kde/qt/qtstyleplugins.git
+
+Package: qt5-style-plugins
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Breaks: libqt5libqgtk2 (<< 5.7)
+Replaces: libqt5libqgtk2 (<< 5.7)
+Description: Qt 5 extra widget styles
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the following widget styles:
+  - Cleanlooks
+  - Motif
+  - Plastique
+  - GTK+ 2
+ .
+ It also provides the GTK+ 2 platformtheme, which you would likely want
+ to use if you want the GTK+ 2 style. Export QT_QPA_PLATFORMTHEME=gtk2 to
+ enable it for all Qt applications.

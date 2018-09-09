@@ -1,0 +1,6 @@
+qtstyleplugins-src (1:5.0.0-1) unstable; urgency=low
+
+  * Initial release based on upstream commit 335dbece103e2cbf6c7cf819ab6672c2956b17b3.
+
+ -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Thu, 06 Sep 2018 16:44:12 +0300
+
