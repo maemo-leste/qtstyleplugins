@@ -61,7 +61,7 @@ public:
                      gint width, GtkStyle *style) Q_DECL_OVERRIDE;
     void paintBox(GtkWidget *gtkWidget, const gchar* part,
                   const QRect &rect, GtkStateType state, GtkShadowType shadow, GtkStyle *style,
-                  const QString &pmKey = QString()) Q_DECL_OVERRIDE;
+                  const QString &pmKey = QString(), int scaleIfHigherThan = -1) Q_DECL_OVERRIDE;
     void paintHline(GtkWidget *gtkWidget, const gchar* part, const QRect &rect, GtkStateType state, GtkStyle *style,
                     int x1, int x2, int y, const QString &pmKey = QString()) Q_DECL_OVERRIDE;
     void paintVline(GtkWidget *gtkWidget, const gchar* part, const QRect &rect, GtkStateType state, GtkStyle *style,

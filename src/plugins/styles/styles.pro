@@ -12,3 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 5) | greaterThan(QT_MINOR_VERSION, 6) {
 packagesExist(gtk+-2.0 x11) {
     SUBDIRS += gtk2
 }
+
+packagesExist(hildon-1) {
+    SUBDIRS += maemo5
+}
