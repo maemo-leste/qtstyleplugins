@@ -59,12 +59,6 @@
 #define MAEMO_CHANGES
 #endif
 
-#include <gtk-2.0/gtk/gtkenums.h>
-
-#include <hildon-fm-2/hildon/hildon-file-chooser-dialog.h>
-#include <hildon-1/hildon/hildon-button.h>
-#include <hildon-1/hildon/hildon-app-menu.h>
-
 #include "qgtkstyle_p_p.h"
 
 QT_BEGIN_NAMESPACE

@@ -198,21 +198,10 @@ void QGtk2Painter::paintBox(GtkWidget *gtkWidget, const gchar* part,
 
     QPixmap cache;
     QRect rect = paintRect;
-    int border;
 
-    // To avoid exhausting cache on large tabframes we cheat a bit by
-    // tiling the center part.
-    if (scaleIfHigherThan != -1) {
-        border = scaleIfHigherThan / 2;
-        if (scaleIfHigherThan > 0 && rect.height() > scaleIfHigherThan)
-            rect.setHeight(scaleIfHigherThan);
-    } else {
-        const int maxHeight = 256;
-        const int maxArea = 256*512;
-        border = 32;
-        if (rect.height() > maxHeight && (rect.width()*rect.height() > maxArea))
-            rect.setHeight(2 * border + 1);
-    }
+    const int border = scaleIfHigherThan / 2;
+    if (scaleIfHigherThan > 0 && rect.height() > scaleIfHigherThan)
+        rect.setHeight(scaleIfHigherThan);
 
     QString pixmapName = uniqueName(QLS(part), state, shadow,
                                     rect.size(), gtkWidget) % pmKey;
