@@ -1,5 +1,5 @@
 %modules = ( # path to module name map
-    "QtMaemo5Style" => "$basedir/src/plugins/styles/maemo5/module",
+    "QtMaemo5" => "$basedir/src/plugins/styles/maemo5/maemo5",
 );
 %moduleheaders = ( # restrict the module headers to those found in relative path
 );

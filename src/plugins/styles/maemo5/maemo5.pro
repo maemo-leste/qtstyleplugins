@@ -1,6 +1,8 @@
 TEMPLATE = subdirs
 SUBDIRS = \
-    module \
+    maemo5style \
+    maemo5 \
     plugin
 
-plugin.depends = module
+maemo5.depends = maemo5style
+plugin.depends = maemo5

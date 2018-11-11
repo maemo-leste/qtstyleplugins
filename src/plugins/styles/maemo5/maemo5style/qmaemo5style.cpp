@@ -43,8 +43,8 @@
 #include "qgtkstyle_p_p.h"
 #include "qcleanlooksstyle.h"
 
-#include <qmaemo5style.h>
-#include <qmaemo5style_p.h>
+#include "qmaemo5style.h"
+#include "qmaemo5style_p.h"
 #include <private/qapplication_p.h>
 
 #include <QtCore/QLibrary>

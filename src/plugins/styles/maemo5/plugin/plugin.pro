@@ -14,8 +14,8 @@ SOURCES += plugin.cpp
 
 include(../../shared/shared.pri)
 
-INCLUDEPATH += ../module ../../gtk2
-LIBS += -L../../../../../lib/ -lQt5Maemo5Style
+INCLUDEPATH += ../maemo5style ../../gtk2
+LIBS += -L../../../../../lib/ -lQt5Maemo5
 
 OTHER_FILES += maemo5.json
 

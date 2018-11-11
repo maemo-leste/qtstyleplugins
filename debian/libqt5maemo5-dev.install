@@ -1,0 +1,6 @@
+usr/include/*/qt5/QtMaemo5/
+usr/lib/*/cmake/Qt5Maemo5/*
+usr/lib/*/libQt5Maemo5.prl
+usr/lib/*/libQt5Maemo5.so
+usr/lib/*/pkgconfig/Qt5Maemo5.pc
+usr/lib/*/qt5/mkspecs/modules/qt_lib_maemo5.pri

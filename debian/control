@@ -42,3 +42,15 @@ Description: Qt 5 extra widget styles
  It also provides the GTK+ 2 platformtheme, which you would likely want
  to use if you want the GTK+ 2 style. Export QT_QPA_PLATFORMTHEME=gtk2 to
  enable it for all Qt applications.
+
+Package: libqt5maemo5-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: qt5-style-plugins (= ${binary:Version}), qtbase5-dev, ${misc:Depends}
+Description: Qt 5 Maemo 5 development files
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package includes the development headers for the Maemo 5 library.
+
