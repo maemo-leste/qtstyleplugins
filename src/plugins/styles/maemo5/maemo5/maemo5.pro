@@ -8,6 +8,8 @@ DEFINES   += QT_BUILD_MAEMO5_LIB QT_NO_USING_NAMESPACE QT_USE_GTK_PRIVATE
 
 PKGCONFIG += gtk+-2.0
 
+LIBS_PRIVATE += -L../maemo5style -lmaemo5style
+
 # remove me
 CONFIG += debug
 
@@ -39,7 +41,6 @@ SOURCES += \
     qmaemo5valuebutton.cpp
 
 INCLUDEPATH += INCLUDEPATH += ../../gtk2 ../maemo5style
-LIBS += -L../maemo5style -lmaemo5style
 
 #QMAKE_CXXFLAGS_RELEASE = -O0 -g
 #QMAKE_CXXFLAGS = -O0 -g
