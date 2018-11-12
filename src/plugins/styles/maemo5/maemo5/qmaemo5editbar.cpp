@@ -44,7 +44,8 @@
 #include <QtWidgets/QLayout>
 #include <QStyle>
 #include <QtWidgets/QStyleOption>
-#include <QtMaemo5/QMaemo5Style>
+
+#include "qmaemo5style.h"
 
 #include <qmaemo5editbar.h>
 #include <qmaemo5editbar_p.h>

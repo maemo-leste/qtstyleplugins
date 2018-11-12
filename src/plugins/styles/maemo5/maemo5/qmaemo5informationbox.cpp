@@ -45,10 +45,11 @@
 #include <QtWidgets/QDesktopWidget>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
-#include <QtMaemo5/QMaemo5Style>
 #include <QtWidgets/QStyleOption>
 #include <QtGui/QMouseEvent>
 #include <QPainter>
+
+#include "qmaemo5style.h"
 
 #include <QX11Info>
 #include <X11/Xlib.h>
