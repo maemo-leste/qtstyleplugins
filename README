@@ -1,7 +1,17 @@
 Qt5 maemo modules as style plugin
+=================================
 
-TODO:
+To install the style, build using dpkg-buildpackage as usual, install, and set
+the following environment variable:
+
+QT_STYLE_OVERRIDE=maemo5
+
+Per application, you can also pass '-style maemo5' as argument.
+
+TODO
+====
 
 - Port remaining widgets from https://github.com/community-ssu/qt-x11-maemo
 - Port application menu
 - Ensure that keyboard input works
+
