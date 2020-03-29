@@ -17,6 +17,8 @@ Build-Depends: debhelper (>= 9),
                libx11-dev,
                pkg-kde-tools,
                qtbase5-private-dev,
+               hildon-fm-dev,
+               libqt5x11extras5-dev,
 Standards-Version: 3.9.8
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtstyleplugins.git
