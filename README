@@ -1,0 +1,7 @@
+Qt5 maemo modules as style plugin
+
+TODO:
+
+- Port remaining widgets from https://github.com/community-ssu/qt-x11-maemo
+- Port application menu
+- Ensure that keyboard input works
