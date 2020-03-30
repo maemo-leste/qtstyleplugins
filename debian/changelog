@@ -1,3 +1,10 @@
+qtstyleplugins-src (1:5.1.0-1) unstable; urgency=low
+
+  * Some build fixes for Beowulf
+  * This is not a finished product!
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Mon, 30 Mar 2020 21:20:30 +0200
+
 qtstyleplugins-src (1:5.0.0-1) unstable; urgency=low
 
   * Initial release based on upstream commit 335dbece103e2cbf6c7cf819ab6672c2956b17b3.
