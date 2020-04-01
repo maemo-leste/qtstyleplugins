@@ -37,21 +37,21 @@
 **
 ****************************************************************************/
 
-#include "qminimalintegration.h"
+#include "qmaemo5integration.h"
 
 QT_BEGIN_NAMESPACE
 
-//QMinimalIntegration::QMinimalIntegration(const QStringList &parameters, int &argc, char** argv)
+//QMaemo5Integration::QMaemo5Integration(const QStringList &parameters, int &argc, char** argv)
 //{
 //}
 //
-//QMinimalIntegration::~QMinimalIntegration()
+//QMaemo5Integration::~QMaemo5Integration()
 //{
 //}
 //
-//QMinimalIntegration *QMinimalIntegration::instance()
+//QMaemo5Integration *QMaemo5Integration::instance()
 //{
-//    return static_cast<QMinimalIntegration *>(QGuiApplicationPrivate::platformIntegration());
+//    return static_cast<QMaemo5Integration *>(QGuiApplicationPrivate::platformIntegration());
 //}
 
 QT_END_NAMESPACE

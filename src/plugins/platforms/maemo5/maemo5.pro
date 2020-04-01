@@ -7,10 +7,10 @@ QT += \
 DEFINES += QT_NO_FOREACH
 
 SOURCES =   main.cpp \
-            qminimalintegration.cpp
-HEADERS =   qminimalintegration.h
+            qmaemo5integration.cpp
+HEADERS =   qmaemo5integration.h
 
-OTHER_FILES += minimal.json
+OTHER_FILES += maemo5.json
 
 PLUGIN_TYPE = platforms
 PLUGIN_CLASS_NAME = QMaemo5IntegrationPlugin

@@ -40,14 +40,14 @@
 #include <iostream>
 
 #include <qpa/qplatformintegrationplugin.h>
-#include "qminimalintegration.h"
+#include "qmaemo5integration.h"
 
 QT_BEGIN_NAMESPACE
 
 class QMaemo5IntegrationPlugin : public QPlatformIntegrationPlugin
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID QPlatformIntegrationFactoryInterface_iid FILE "minimal.json")
+    Q_PLUGIN_METADATA(IID QPlatformIntegrationFactoryInterface_iid FILE "maemo5.json")
 public:
     QPlatformIntegration *create(const QString&, const QStringList&, int &, char **) override;
 };

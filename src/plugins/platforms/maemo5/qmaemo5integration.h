@@ -37,18 +37,18 @@
 **
 ****************************************************************************/
 
-#ifndef QPLATFORMINTEGRATION_MINIMAL_H
-#define QPLATFORMINTEGRATION_MINIMAL_H
+#ifndef QPLATFORMINTEGRATION_MAEMO5_H
+#define QPLATFORMINTEGRATION_MAEMO5_H
 
 #include "qxcbintegration.h"
 
 QT_BEGIN_NAMESPACE
 
-class QMinimalIntegration : public QXcbIntegration
+class QMaemo5Integration : public QXcbIntegration
 {
 public:
-    explicit QMinimalIntegration(const QStringList &parameters, int &argc, char** argv);
-    ~QMinimalIntegration();
+    explicit QMaemo5Integration(const QStringList &parameters, int &argc, char** argv);
+    ~QMaemo5Integration();
 
 };
 
