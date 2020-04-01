@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = platformthemes styles
+SUBDIRS = platformthemes styles platforms
