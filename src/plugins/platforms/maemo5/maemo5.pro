@@ -16,6 +16,6 @@ PLUGIN_TYPE = platforms
 PLUGIN_CLASS_NAME = QMaemo5IntegrationPlugin
 !equals(TARGET, $$QT_DEFAULT_QPA_PLUGIN): PLUGIN_EXTENDS = -
 
-QMAKE_LFLAGS = $(QMAKE_FLAGS) -lQt5XcbQpa
+QMAKE_LFLAGS = $(QMAKE_LFLAGS) -lQt5XcbQpa
 
 load(qt_plugin)
