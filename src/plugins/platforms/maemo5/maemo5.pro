@@ -7,16 +7,15 @@ QT += \
 DEFINES += QT_NO_FOREACH
 
 SOURCES =   main.cpp \
-            qminimalintegration.cpp \
-            qminimalbackingstore.cpp
-HEADERS =   qminimalintegration.h \
-            qminimalbackingstore.h
+            qminimalintegration.cpp
+HEADERS =   qminimalintegration.h
 
 OTHER_FILES += minimal.json
-
-qtConfig(freetype): QMAKE_USE_PRIVATE += freetype
 
 PLUGIN_TYPE = platforms
 PLUGIN_CLASS_NAME = QMaemo5IntegrationPlugin
 !equals(TARGET, $$QT_DEFAULT_QPA_PLUGIN): PLUGIN_EXTENDS = -
+
+QMAKE_LFLAGS = $(QMAKE_FLAGS) -lQt5XcbQpa
+
 load(qt_plugin)

@@ -37,6 +37,7 @@
 **
 ****************************************************************************/
 
+#include <iostream>
 
 #include <qpa/qplatformintegrationplugin.h>
 #include "qminimalintegration.h"
@@ -48,13 +49,15 @@ class QMaemo5IntegrationPlugin : public QPlatformIntegrationPlugin
     Q_OBJECT
     Q_PLUGIN_METADATA(IID QPlatformIntegrationFactoryInterface_iid FILE "minimal.json")
 public:
-    QPlatformIntegration *create(const QString&, const QStringList&) override;
+    QPlatformIntegration *create(const QString&, const QStringList&, int &, char **) override;
 };
 
-QPlatformIntegration *QMaemo5IntegrationPlugin::create(const QString& system, const QStringList& paramList)
+QPlatformIntegration *QMaemo5IntegrationPlugin::create(const QString& system, const QStringList& parameters, int &argc, char **argv)
 {
-    if (!system.compare(QLatin1String("maemo5"), Qt::CaseInsensitive))
-        return new QMinimalIntegration(paramList);
+    if (!system.compare(QLatin1String("maemo5"), Qt::CaseInsensitive)) {
+        std::cerr << "Maemo5 plugin init!" << std::endl;
+        return new QXcbIntegration(parameters, argc, argv);
+    }
 
     return 0;
 }

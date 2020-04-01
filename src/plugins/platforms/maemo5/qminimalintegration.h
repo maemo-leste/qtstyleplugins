@@ -40,55 +40,16 @@
 #ifndef QPLATFORMINTEGRATION_MINIMAL_H
 #define QPLATFORMINTEGRATION_MINIMAL_H
 
-#include <qpa/qplatformintegration.h>
-#include <qpa/qplatformscreen.h>
+#include "qxcbintegration.h"
 
 QT_BEGIN_NAMESPACE
 
-class QMinimalScreen : public QPlatformScreen
+class QMinimalIntegration : public QXcbIntegration
 {
 public:
-    QMinimalScreen()
-        : mDepth(32), mFormat(QImage::Format_ARGB32_Premultiplied) {}
-
-    QRect geometry() const override { return mGeometry; }
-    int depth() const override { return mDepth; }
-    QImage::Format format() const override { return mFormat; }
-
-public:
-    QRect mGeometry;
-    int mDepth;
-    QImage::Format mFormat;
-    QSize mPhysicalSize;
-};
-
-class QMinimalIntegration : public QPlatformIntegration
-{
-public:
-    enum Options { // Options to be passed on command line or determined from environment
-        DebugBackingStore = 0x1,
-        EnableFonts = 0x2,
-        FreeTypeFontDatabase = 0x4,
-        FontconfigDatabase = 0x8
-    };
-
-    explicit QMinimalIntegration(const QStringList &parameters);
+    explicit QMinimalIntegration(const QStringList &parameters, int &argc, char** argv);
     ~QMinimalIntegration();
 
-    bool hasCapability(QPlatformIntegration::Capability cap) const override;
-    QPlatformFontDatabase *fontDatabase() const override;
-
-    QPlatformWindow *createPlatformWindow(QWindow *window) const override;
-    QPlatformBackingStore *createPlatformBackingStore(QWindow *window) const override;
-    QAbstractEventDispatcher *createEventDispatcher() const override;
-
-    unsigned options() const { return m_options; }
-
-    static QMinimalIntegration *instance();
-
-private:
-    mutable QPlatformFontDatabase *m_fontDatabase;
-    unsigned m_options;
 };
 
 QT_END_NAMESPACE
