@@ -1,2 +1,3 @@
 usr/lib/*/libQt5Maemo5.so.*
+usr/lib/*/libQt5XcbMaemoQpa.so.*
 usr/lib/*/qt5/plugins/*
