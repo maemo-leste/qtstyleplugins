@@ -8,7 +8,7 @@ DEFINES   += QT_BUILD_MAEMO5_LIB QT_NO_USING_NAMESPACE QT_USE_GTK_PRIVATE
 
 PKGCONFIG += gtk+-2.0
 
-LIBS_PRIVATE += -L../maemo5style -lmaemo5style
+LIBS_PRIVATE += -L../maemo5style -lQMaemo5Style
 
 # remove me
 CONFIG += debug
