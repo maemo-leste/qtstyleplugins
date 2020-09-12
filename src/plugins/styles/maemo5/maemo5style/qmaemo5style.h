@@ -47,7 +47,7 @@
 #include <QtWidgets/QStyle>
 #include <QtWidgets/QStyleOption>
 
-#include "qgtkstyle_p.h"
+#include "qgtkstyle_maemo.h"
 
 QT_BEGIN_HEADER
 

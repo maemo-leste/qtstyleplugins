@@ -20,3 +20,6 @@ override_dh_auto_install:
 	
 	# Remove the development stuff of the installed plugins
 	rm -rfv $(CURDIR)/debian/qt5-style-plugins/usr/lib/*/cmake/
+
+	# Install maemo spec
+	cp -va $(CURDIR)/spec/maemo $(CURDIR)/debian/tmp/usr/lib/*/qt5/mkspecs/
