@@ -1,3 +1,10 @@
+qtstyleplugins-src (1:5.1.1-1) unstable; urgency=low
+
+  * Add spec file and QMaemo5Style
+  * This is not a finished product!
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Sat, 12 Sep 2020 19:34:03 +0200
+
 qtstyleplugins-src (1:5.1.0-1) unstable; urgency=low
 
   * Some build fixes for Beowulf
