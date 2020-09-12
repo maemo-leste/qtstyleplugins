@@ -1,0 +1,1 @@
+../../gtk2/qgtkstyle_p.h
