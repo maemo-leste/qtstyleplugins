@@ -13,8 +13,6 @@ PKGCONFIG += hildon-1 hildon-fm-2 gtk+-2.0 x11
 
 DEFINES += QT_NO_ANIMATION
 
-load(qt_module)
-
 SOURCES += \
     ../../gtk2/qgtkstyle.cpp \
     ../../gtk2/qgtkstyle_p.cpp \
