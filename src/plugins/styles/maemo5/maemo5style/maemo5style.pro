@@ -29,4 +29,11 @@ HEADERS += \
 
 include(../../shared/shared.pri)
 
+headers.files = qmaemo5style.h \
+                ../../gtk2/qgtkstyle_p.h \
+                QMaemo5Style
+headers.path = $$[QT_INSTALL_HEADERS]/QtMaemo5
+
+INSTALLS += headers
+
 INCLUDEPATH += ../../gtk2 ../../cleanlooks
