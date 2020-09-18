@@ -3,12 +3,13 @@ QPRO_PWD   = $$PWD
 
 QT = core-private gui-private widgets-private dbus x11extras
 
-CONFIG    += x11 link_pkgconfig
+CONFIG    += x11
 DEFINES   += QT_BUILD_MAEMO5_LIB QT_NO_USING_NAMESPACE QT_USE_GTK_PRIVATE
 
-PKGCONFIG += gtk+-2.0
-
 LIBS_PRIVATE += -L../maemo5style -lmaemo5style
+
+LIBS_PRIVATE += `pkg-config --libs gtk+-2.0`
+QMAKE_CXXFLAGS += `pkg-config --cflags gtk+-2.0`
 
 # remove me
 CONFIG += debug
