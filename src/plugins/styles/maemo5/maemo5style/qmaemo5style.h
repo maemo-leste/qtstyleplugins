@@ -91,7 +91,11 @@ class Q_GUI_EXPORT QMaemo5Style : public QGtkStyle
 {
     Q_OBJECT
     Q_DECLARE_PRIVATE(QMaemo5Style)
-
+    
+protected:
+    static bool isLowContrast(const QColor& colorA, const QColor& colorB);
+    static void invertColor(QColor& color);
+    
 public:
     QMaemo5Style();
     ~QMaemo5Style();
@@ -116,6 +120,8 @@ public:
 
     static QFont standardFont(const QString &logicalFontName);
     static QColor standardColor(const QString &logicalColorName);
+
+    QPalette standardPalette() const Q_DECL_OVERRIDE;
 
     void drawPrimitive(QStyle::PrimitiveElement element, const QStyleOption *option,
                        QPainter *painter, const QWidget *widget) const;
