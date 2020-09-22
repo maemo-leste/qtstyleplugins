@@ -1,3 +1,9 @@
+qtstyleplugins-src (1:5.1.4-1) unstable; urgency=low
+
+  * Attempt to fix default text colour contrast (thanks uvos)
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Tue, 22 Sep 2020 23:25:45 +0200
+
 qtstyleplugins-src (1:5.1.3-1) unstable; urgency=low
 
   * Fixup maemo5 prl file to not require gtk.
