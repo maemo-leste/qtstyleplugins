@@ -2118,62 +2118,6 @@ QColor QMaemo5Style::standardColor(const QString &logicalColorName)
     return QColor();
 }
 
-bool QMaemo5Style::isLowContrast(const QColor& colorA, const QColor& colorB)
-{
-    return qAbs(colorA.lightness()-colorB.lightness()) < 128;
-}
-
-void QMaemo5Style::invertColor(QColor& color)
-{
-    color.setRgb(255 - color.red(), 255 - color.green(), 255 - color.blue());
-}
-
-QPalette QMaemo5Style::standardPalette() const
-{
-    QPalette palette = QGtkStyle::standardPalette();
-    
-    QColor base = palette.color(QPalette::Base);
-    QColor baseText = palette.color(QPalette::Text);
-    QColor window = palette.color(QPalette::Window);
-    QColor windowText = palette.color(QPalette::WindowText);
-    QColor button = palette.color(QPalette::Button);
-    QColor buttonText = palette.color(QPalette::ButtonText);
-    
-    if (isLowContrast(base, baseText)) {
-        qWarning()<<"QMaemo5Style: Base color has insufficant contrast with baseText, inverting baseText.";
-        invertColor(baseText);
-    }
-    if (isLowContrast(window, windowText)) {
-        qWarning()<<"QMaemo5Style: Window color has insufficant contrast with windowText, inverting windowText.";
-        invertColor(windowText);
-    }
-    if (isLowContrast(window, baseText)) {
-        qInfo()<<"QMaemo5Style: Window color has low contrast with baseText. "<<
-                 "Maemo applciatons rely on this, inverting baseText.";
-        invertColor(baseText);
-        if (isLowContrast(base, baseText))
-            invertColor(base);
-    }
-    if (isLowContrast(base, windowText)) {
-        qInfo()<<"QMaemo5Style: Base color has low contrast with windowText. "<<
-                 "Maemo applciatons rely on this, inverting windowText.";
-        invertColor(windowText);
-        if (isLowContrast(window, windowText))
-            invertColor(window);
-    }
-    if (isLowContrast(button, buttonText)) {
-        qWarning()<<"QMaemo5Style: Button color has insufficant contrast with buttonText, inverting buttonText.";
-        invertColor(buttonText);
-    }
-    
-    palette.setColor(QPalette::Base, base);
-    palette.setColor(QPalette::Text, baseText);
-    palette.setColor(QPalette::Window, window);
-    palette.setColor(QPalette::WindowText, windowText);
-    palette.setColor(QPalette::ButtonText, buttonText);
-    
-    return palette;
-}
 
 /*!
     \enum QMaemo5Style::PrimitiveElement
