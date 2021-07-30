@@ -1,3 +1,9 @@
+qtstyleplugins-src (1:5.1.5-1) unstable; urgency=low
+
+  * Revert fix, breaks input
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Fri, 30 Jul 2021 14:59:41 +0200
+
 qtstyleplugins-src (1:5.1.4-1) unstable; urgency=low
 
   * Attempt to fix default text colour contrast (thanks uvos)
