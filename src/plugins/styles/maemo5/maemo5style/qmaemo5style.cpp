@@ -139,9 +139,9 @@ QString QMaemo5StylePrivate::systemIconThemeName()
 }
 
 /*!
-\internal
-NOTE: Reverse color in fremantle themes are set only for
-GtkTextView widgets. GtkEntry returns a dark base color.
+  \internal
+  NOTE: Reverse color in fremantle themes are set only for
+  GtkTextView widgets. GtkEntry returns a dark base color.
 */
 GtkWidget* QMaemo5StylePrivate::getTextColorWidget() const
 {
@@ -286,7 +286,7 @@ void QMaemo5StylePrivate::initGtkWidgets() const
     hildon_init();
 
     if (!gtkWidgetMap()->contains("GtkWindow"))
-    return; // without window all other widgets won't be created cleanly
+	return; // without window all other widgets won't be created cleanly
 
     // ComboBoxes buttons
     addWidget(hildon_number_editor_new(0,1));
@@ -311,29 +311,29 @@ void QMaemo5StylePrivate::initGtkWidgets() const
 
     // now for a special combobox trick...
     for (int i = 0; i < 3; i++) {
-    const char *names[] = { "hildon-combobox-disabled-button", "hildon-combobox-active-button", "hildon-combobox-button" };
+	const char *names[] = { "hildon-combobox-disabled-button", "hildon-combobox-active-button", "hildon-combobox-button" };
 
-    GtkWidget *popup_button = hildon_button_new(HILDON_SIZE_FINGER_HEIGHT, HILDON_BUTTON_ARRANGEMENT_VERTICAL);
-    gtk_widget_set_name(popup_button, names[i]);
-    gtk_widget_set_size_request (popup_button, 60, -1);
+	GtkWidget *popup_button = hildon_button_new(HILDON_SIZE_FINGER_HEIGHT, HILDON_BUTTON_ARRANGEMENT_VERTICAL);
+	gtk_widget_set_name(popup_button, names[i]);
+	gtk_widget_set_size_request (popup_button, 60, -1);
 
-    GtkWidget *address_entry = hildon_entry_new(HILDON_SIZE_FINGER_HEIGHT);
-    GtkWidget *address_container_box = gtk_hbox_new(FALSE, 0);
-    gtk_widget_set_name(address_container_box, "hildon-combobox");
+	GtkWidget *address_entry = hildon_entry_new(HILDON_SIZE_FINGER_HEIGHT);
+	GtkWidget *address_container_box = gtk_hbox_new(FALSE, 0);
+	gtk_widget_set_name(address_container_box, "hildon-combobox");
 
-    gtk_box_pack_start((GtkBox *)address_container_box, address_entry, TRUE, TRUE, 0);
-    gtk_box_pack_end((GtkBox *)address_container_box, popup_button, FALSE, FALSE, 0);
-    gtk_widget_show (address_entry);
-    gtk_widget_show (popup_button);
-    // gtk_widget_set_sensitive(popup_button, FALSE);
+	gtk_box_pack_start((GtkBox *)address_container_box, address_entry, TRUE, TRUE, 0);
+	gtk_box_pack_end((GtkBox *)address_container_box, popup_button, FALSE, FALSE, 0);
+	gtk_widget_show (address_entry);
+	gtk_widget_show (popup_button);
+	// gtk_widget_set_sensitive(popup_button, FALSE);
 
-    addWidget(address_container_box);
+	addWidget(address_container_box);
     }
 }
 
 /*! \internal
-*  Returns one int value from the HildonAppMenu widget style.
-*/
+ *  Returns one int value from the HildonAppMenu widget style.
+ */
 int QMaemo5StylePrivate::getAppMenuMetric( const char *metricName, int defaultValue ) const
 {
     guint value = defaultValue;
@@ -350,43 +350,43 @@ QFont QMaemo5StylePrivate::getThemeFont(const QString &logicalFontName)
     GtkStyle *style;
 
     if (!logicalFontName.isEmpty())
-    style = gtk_rc_get_style_by_paths(gtk_settings_get_default(), logicalFontName.toUtf8().constData(), NULL, G_TYPE_NONE);
+	style = gtk_rc_get_style_by_paths(gtk_settings_get_default(), logicalFontName.toUtf8().constData(), NULL, G_TYPE_NONE);
     else
-    style = gtkStyle();
+	style = gtkStyle();
 
     if (style && qApp->desktopSettingsAware())
     {
-    PangoFontDescription *gtk_font = style->font_desc;
-    font.setPointSizeF((float)(pango_font_description_get_size(gtk_font))/PANGO_SCALE);
+	PangoFontDescription *gtk_font = style->font_desc;
+	font.setPointSizeF((float)(pango_font_description_get_size(gtk_font))/PANGO_SCALE);
 
-    QString family = QString::fromLatin1(pango_font_description_get_family(gtk_font));
-    if (!family.isEmpty())
-        font.setFamily(family);
+	QString family = QString::fromLatin1(pango_font_description_get_family(gtk_font));
+	if (!family.isEmpty())
+	    font.setFamily(family);
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 5, 0)
-    const int weight = pango_font_description_get_weight(gtk_font);
-    font.setWeight(QPlatformFontDatabase::weightFromInteger(weight));
+	const int weight = pango_font_description_get_weight(gtk_font);
+	font.setWeight(QPlatformFontDatabase::weightFromInteger(weight));
 #else
-    int weight = pango_font_description_get_weight(gtk_font);
-    if (weight >= PANGO_WEIGHT_HEAVY)
-        font.setWeight(QFont::Black);
-    else if (weight >= PANGO_WEIGHT_BOLD)
-        font.setWeight(QFont::Bold);
-    else if (weight >= PANGO_WEIGHT_SEMIBOLD)
-        font.setWeight(QFont::DemiBold);
-    else if (weight >= PANGO_WEIGHT_NORMAL)
-        font.setWeight(QFont::Normal);
-    else
-        font.setWeight(QFont::Light);
+	int weight = pango_font_description_get_weight(gtk_font);
+	if (weight >= PANGO_WEIGHT_HEAVY)
+	    font.setWeight(QFont::Black);
+	else if (weight >= PANGO_WEIGHT_BOLD)
+	    font.setWeight(QFont::Bold);
+	else if (weight >= PANGO_WEIGHT_SEMIBOLD)
+	    font.setWeight(QFont::DemiBold);
+	else if (weight >= PANGO_WEIGHT_NORMAL)
+	    font.setWeight(QFont::Normal);
+	else
+	    font.setWeight(QFont::Light);
 #endif
 
-    PangoStyle fontstyle = pango_font_description_get_style(gtk_font);
-    if (fontstyle == PANGO_STYLE_ITALIC)
-        font.setStyle(QFont::StyleItalic);
-    else if (fontstyle == PANGO_STYLE_OBLIQUE)
-        font.setStyle(QFont::StyleOblique);
-    else
-        font.setStyle(QFont::StyleNormal);
+	PangoStyle fontstyle = pango_font_description_get_style(gtk_font);
+	if (fontstyle == PANGO_STYLE_ITALIC)
+	    font.setStyle(QFont::StyleItalic);
+	else if (fontstyle == PANGO_STYLE_OBLIQUE)
+	    font.setStyle(QFont::StyleOblique);
+	else
+	    font.setStyle(QFont::StyleNormal);
     }
     return font;
 }
@@ -516,8 +516,8 @@ void QMaemo5Style::polish(QWidget *widget)
             area->setFrameStyle(QFrame::NoFrame);
 
             d->scrollBarFaders.insert(area, new ScrollBarFader(area, d->scrollBarFadeDelay,
-                                                                    d->scrollBarFadeDuration,
-                                                                    d->scrollBarFadeUpdateInterval));
+                                                                     d->scrollBarFadeDuration,
+                                                                     d->scrollBarFadeUpdateInterval));
 
             if (QAbstractItemView *itemview = qobject_cast<QAbstractItemView *>(area)) {
                 itemview->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -531,8 +531,8 @@ void QMaemo5Style::polish(QWidget *widget)
 }
 
 /*!
-\reimp
-*/
+  \reimp
+  */
 void QMaemo5Style::unpolish(QWidget *widget)
 {
     Q_D(QMaemo5Style);
@@ -551,8 +551,8 @@ void QMaemo5Style::unpolish(QWidget *widget)
     \reimp
 */
 int QMaemo5Style::pixelMetric(QStyle::PixelMetric metric,
-                        const QStyleOption *option,
-                        const QWidget *widget) const
+                           const QStyleOption *option,
+                           const QWidget *widget) const
 {
     Q_D(const QMaemo5Style);
 
@@ -595,20 +595,20 @@ int QMaemo5Style::pixelMetric(QStyle::PixelMetric metric,
     case PM_ButtonShiftHorizontal: {
         guint horizontal_shift = 1;
         if (GtkWidget *gtkButton = d->getGtkButtonForWidget(widget))
-        gtk_widget_style_get(gtkButton, "child-displacement-x", &horizontal_shift, NULL);
+	    gtk_widget_style_get(gtkButton, "child-displacement-x", &horizontal_shift, NULL);
         return horizontal_shift;
     }
     case PM_ButtonShiftVertical: {
         guint vertical_shift = 1;
         if (GtkWidget *gtkButton = d->getGtkButtonForWidget(widget))
-        gtk_widget_style_get(gtkButton, "child-displacement-y", &vertical_shift, NULL);
+	    gtk_widget_style_get(gtkButton, "child-displacement-y", &vertical_shift, NULL);
         return vertical_shift;
     }
     case PM_ScrollBarSliderMin: // fall through
     case PM_ScrollBarExtent: {
         guint indicator_width = 6;
         if (GtkWidget *hildonPan = d->gtkWidget("HildonPannableArea"))
-        gtk_widget_style_get(hildonPan, "indicator-width", &indicator_width, NULL);
+	    gtk_widget_style_get(hildonPan, "indicator-width", &indicator_width, NULL);
         return indicator_width;
     }
     case PM_ScrollView_ScrollBarSpacing:
@@ -625,7 +625,7 @@ int QMaemo5Style::pixelMetric(QStyle::PixelMetric metric,
     case PM_IndicatorHeight: {
         gint size = 38, spacing = 8;
         if (GtkWidget *hildonCheckButton = d->gtkWidget("HildonCheckButton-finger"))
-        gtk_widget_style_get(hildonCheckButton, "image-spacing", &spacing, "checkbox-size", &size, NULL);
+	    gtk_widget_style_get(hildonCheckButton, "image-spacing", &spacing, "checkbox-size", &size, NULL);
         return size + 2 * spacing;
     }
     case PM_CheckBoxLabelSpacing:
@@ -647,13 +647,13 @@ int QMaemo5Style::pixelMetric(QStyle::PixelMetric metric,
     case PM_Maemo5EditBarBackButtonWidth: {
         gint width = 112;
         if (GtkWidget *hildonEditBar = d->gtkWidget("toolbar-edit-mode"))
-        gtk_widget_style_get(hildonEditBar, "arrow-width", &width, NULL);
+	    gtk_widget_style_get(hildonEditBar, "arrow-width", &width, NULL);
         return width;
     }
     case PM_Maemo5EditBarBackButtonHeight: {
         gint height = 56;
         if (GtkWidget *hildonEditBar = d->gtkWidget("toolbar-edit-mode"))
-        gtk_widget_style_get(hildonEditBar, "arrow-height", &height, NULL);
+	    gtk_widget_style_get(hildonEditBar, "arrow-height", &height, NULL);
         return height;
     }
 
@@ -666,7 +666,7 @@ int QMaemo5Style::pixelMetric(QStyle::PixelMetric metric,
     \reimp
 */
 int QMaemo5Style::styleHint(StyleHint hint, const QStyleOption *option, const QWidget *widget,
-                        QStyleHintReturn *returnData = 0) const
+                         QStyleHintReturn *returnData = 0) const
 {
     Q_D(const QMaemo5Style);
 
@@ -706,9 +706,9 @@ int QMaemo5Style::styleHint(StyleHint hint, const QStyleOption *option, const QW
     \reimp
 */
 void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
-                            const QStyleOption *option,
-                            QPainter *painter,
-                            const QWidget *widget) const
+                              const QStyleOption *option,
+                              QPainter *painter,
+                              const QWidget *widget) const
 {
     Q_D(const QMaemo5Style);
 
@@ -785,7 +785,7 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
                 GtkWidget *gtkEntry = d->gtkWidget("HildonEntry-finger");
                 uint resolve_mask = option->palette.resolve();
                 QRect textRect = option->rect.adjusted(gtkEntry->style->xthickness, gtkEntry->style->ythickness,
-                                                    -gtkEntry->style->xthickness, -gtkEntry->style->ythickness);
+                                                       -gtkEntry->style->xthickness, -gtkEntry->style->ythickness);
                 if (widget && widget->testAttribute(Qt::WA_SetPalette) &&
                     resolve_mask & (1 << QPalette::Base)) // Palette overridden by user
                     painter->fillRect(textRect, option->palette.base());
@@ -802,7 +802,7 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
                 // This would be more elegant if we could either get the correct fill color for
                 // disabled line edits or if itemview did not draw the item when an editor is open
                 painter->fillRect(option->rect.adjusted(lineWidth, lineWidth, -lineWidth, -lineWidth),
-                                option->palette.brush(QPalette::Base));
+                                  option->palette.brush(QPalette::Base));
             }
         }
         break;
@@ -814,10 +814,10 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
         gint focus_line_width;
         gboolean state_hint = false;
         QRect rect = option->rect;
-    gtk_widget_style_get(gtkEntry,
-                            "interior-focus", &interior_focus,
-                            "focus-line-width", &focus_line_width,
-                            "state-hint", &state_hint, NULL);
+	gtk_widget_style_get(gtkEntry,
+                               "interior-focus", &interior_focus,
+                               "focus-line-width", &focus_line_width,
+                               "state-hint", &state_hint, NULL);
 
         // See https://bugzilla.mozilla.org/show_bug.cgi?id=405421 for info about this hack
         g_object_set_data(G_OBJECT(gtkEntry), "transparent-bg-hint", GINT_TO_POINTER(TRUE));
@@ -828,13 +828,13 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
         if (option->state & State_HasFocus)
             GTK_WIDGET_SET_FLAGS(gtkEntry, GTK_HAS_FOCUS);
         gtkPainter.paintShadow(gtkEntry, "entry", rect, option->state & State_Enabled ?
-                            (state_hint && option->state & State_HasFocus ? GTK_STATE_ACTIVE : GTK_STATE_NORMAL) : GTK_STATE_INSENSITIVE,
-                            GTK_SHADOW_IN, gtkEntry->style,
-                            option->state & State_HasFocus ? QLS("focus") : QString());
+                               (state_hint && option->state & State_HasFocus ? GTK_STATE_ACTIVE : GTK_STATE_NORMAL) : GTK_STATE_INSENSITIVE,
+                               GTK_SHADOW_IN, gtkEntry->style,
+                               option->state & State_HasFocus ? QLS("focus") : QString());
         if (!interior_focus && option->state & State_HasFocus)
             gtkPainter.paintShadow(gtkEntry, "entry", option->rect, option->state & State_Enabled ?
-                                GTK_STATE_ACTIVE : GTK_STATE_INSENSITIVE,
-                                GTK_SHADOW_IN, gtkEntry->style, QLS("GtkEntryShadowIn"));
+                                   GTK_STATE_ACTIVE : GTK_STATE_INSENSITIVE,
+                                   GTK_SHADOW_IN, gtkEntry->style, QLS("GtkEntryShadowIn"));
 
         if (option->state & State_HasFocus)
             GTK_WIDGET_UNSET_FLAGS(gtkEntry, GTK_HAS_FOCUS);
@@ -862,12 +862,12 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
             // Some styles such as aero-clone assume they can paint in the spacing area
             gtkPainter.setClipRect(option->rect);
 
-        gtk_widget_style_get(gtkCheckButton, "image-spacing", &spacing, NULL);
+	    gtk_widget_style_get(gtkCheckButton, "image-spacing", &spacing, NULL);
 
             QRect checkRect = option->rect.adjusted(spacing, spacing, -spacing, -spacing);
 
             gtkPainter.paintCheckbox(gtkCellView, checkRect, state, shadow, gtkCellView->style,
-                                    QLS("checkbutton"));
+                                     QLS("checkbutton"));
         }
         break;
     }
@@ -905,7 +905,7 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
 
                 int rowHeight = 70;
                 if (GtkWidget *gtkTreeView = d->gtkWidget("HildonPannableArea.GtkTreeView"))
-            gtk_widget_style_get(gtkTreeView, "row-height", &rowHeight, NULL);
+		    gtk_widget_style_get(gtkTreeView, "row-height", &rowHeight, NULL);
 
                 if (option->rect.height() != rowHeight) {
                     QPixmap scalePix(option->rect.width(), rowHeight);
@@ -917,9 +917,9 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
 
                     // the sapwood engine won't scale the image, but instead tile it, which looks ridiculous
                     gtkScalePainter.paintFlatBox(gtkTreeView, detail, QRect(0, 0, option->rect.width(), rowHeight),
-                                                option->state & State_Selected ? GTK_STATE_SELECTED :
-                                                option->state & State_Enabled ? GTK_STATE_NORMAL : GTK_STATE_INSENSITIVE,
-                                                GTK_SHADOW_NONE, gtkTreeView->style);
+                                                 option->state & State_Selected ? GTK_STATE_SELECTED :
+                                                 option->state & State_Enabled ? GTK_STATE_NORMAL : GTK_STATE_INSENSITIVE,
+                                                 GTK_SHADOW_NONE, gtkTreeView->style);
 
                     // don't just scale the whole pixmap - the bottom border line would look extremly ugly for big items
                     int dh = 8; // just an arbitrary value which looks good with the default Maemo styles
@@ -978,7 +978,7 @@ void QMaemo5Style::drawPrimitive(QStyle::PrimitiveElement element,
     \reimp
 */
 void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOptionComplex *option,
-                                QPainter *painter, const QWidget *widget) const
+                                   QPainter *painter, const QWidget *widget) const
 {
     Q_D(const QMaemo5Style);
 
@@ -1020,18 +1020,18 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
             const qreal dy = option->rect.y() + d_ + (height - 2 * r) / 2 + 1;
 
             QRectF br = QRectF(dx + 0.5, dy + 0.5,
-                            int(r * 2 - 2 * d_ - 2),
-                            int(r * 2 - 2 * d_ - 2));
+                               int(r * 2 - 2 * d_ - 2),
+                               int(r * 2 - 2 * d_ - 2));
             QColor shadowColor(0, 0, 0, 20);
 
             if (enabled) {
                 // Drop shadow
                 qreal shadowSize = qMax(1.0, penSize/2.0);
                 QRectF shadowRect= br.adjusted(-2*shadowSize, -2*shadowSize,
-                                            2*shadowSize, 2*shadowSize);
+                                               2*shadowSize, 2*shadowSize);
                 QRadialGradient shadowGradient(shadowRect.center().x(),
-                                            shadowRect.center().y(), shadowRect.width()/2.0,
-                                            shadowRect.center().x(), shadowRect.center().y());
+                                               shadowRect.center().y(), shadowRect.width()/2.0,
+                                               shadowRect.center().x(), shadowRect.center().y());
                 shadowGradient.setColorAt(qreal(0.91), QColor(0, 0, 0, 40));
                 shadowGradient.setColorAt(qreal(1.0), Qt::transparent);
                 p->setBrush(shadowGradient);
@@ -1042,8 +1042,8 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
 
                 // Main gradient
                 QRadialGradient gradient(br.center().x() - br.width()/3, dy,
-                                        br.width()*1.3, br.center().x(),
-                                        br.center().y() - br.height()/2);
+                                         br.width()*1.3, br.center().x(),
+                                         br.center().y() - br.height()/2);
                 gradient.setColorAt(0, buttonColor);
                 gradient.setColorAt(qreal(0.6), buttonColor);
                 gradient.setColorAt(qreal(0.601), buttonColor.darker(107));
@@ -1062,8 +1062,8 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
             if (option->state & QStyle::State_HasFocus) {
                 QColor highlight = pal.highlight().color();
                 highlight.setHsv(highlight.hue(),
-                                qMin(190, highlight.saturation()),
-                                qMax(210, highlight.value()));
+                                 qMin(190, highlight.saturation()),
+                                 qMax(210, highlight.value()));
                 highlight.setAlpha(200);
                 p->setPen(QPen(highlight, 2.0));
                 p->setBrush(Qt::NoBrush);
@@ -1078,9 +1078,9 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
             const qreal ds = r/qreal(7.0);
             QRectF dialRect(dp.x() - ds, dp.y() - ds, 2*ds, 2*ds);
             QRadialGradient dialGradient(dialRect.center().x() + dialRect.width()/2,
-                                        dialRect.center().y() + dialRect.width(),
-                                        dialRect.width()*2,
-                                        dialRect.center().x(), dialRect.center().y());
+                                         dialRect.center().y() + dialRect.width(),
+                                         dialRect.width()*2,
+                                         dialRect.center().x(), dialRect.center().y());
             dialGradient.setColorAt(1, buttonColor.darker(130));
             dialGradient.setColorAt(qreal(0.4), buttonColor.darker(160));
             dialGradient.setColorAt(0, buttonColor.darker(130));
@@ -1200,18 +1200,18 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
                     bool reverse = (option->direction == Qt::RightToLeft);
                     QRect rect = option->rect;
                     QRect arrowButtonRect = proxy()->subControlRect(CC_ComboBox, &comboBoxCopy,
-                                                        SC_ComboBoxArrow, widget);
+                                                           SC_ComboBoxArrow, widget);
                     QRect editRect = proxy()->subControlRect(CC_ComboBox, &comboBoxCopy,
                                                     SC_ComboBoxEditField, widget);
 
                     GtkShadowType shadow = (option->state & State_Sunken || option->state & State_On ) ?
-                                        GTK_SHADOW_IN : GTK_SHADOW_OUT;
+                                           GTK_SHADOW_IN : GTK_SHADOW_OUT;
 
                     // We use the gtk widget to position arrows and separators for us
                     GtkWidget *gtkCombo = d->gtkWidget("hildon-combobox");
                     GtkAllocation geometry = {0, 0, option->rect.width(), option->rect.height()};
-            gtk_widget_set_direction(gtkCombo, reverse ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
-            gtk_widget_size_allocate(gtkCombo, &geometry);
+		    gtk_widget_set_direction(gtkCombo, reverse ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
+		    gtk_widget_size_allocate(gtkCombo, &geometry);
 
                     QHashableLatin1Literal buttonPath("hildon-combobox.hildon-combobox-disabled-button");
                     if (focus)
@@ -1219,7 +1219,7 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
                     else if (isEnabled)
                         buttonPath = "hildon-combobox.hildon-combobox-button";
                     GtkWidget *gtkToggleButton = d->gtkWidget(buttonPath);
-            gtk_widget_set_direction(gtkToggleButton, reverse ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
+		    gtk_widget_set_direction(gtkToggleButton, reverse ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
                     if (gtkToggleButton && (appears_as_list || comboBox->editable)) {
                         if (focus)
                             GTK_WIDGET_SET_FLAGS(gtkToggleButton, GTK_HAS_FOCUS);
@@ -1230,7 +1230,7 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
                                 frameState = GTK_STATE_ACTIVE;
                             QHashableLatin1Literal entryPath("hildon-combobox.HildonEntry-finger");
                             GtkWidget *gtkEntry = d->gtkWidget(entryPath);
-                gtk_widget_set_direction(gtkEntry, reverse ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
+			    gtk_widget_set_direction(gtkEntry, reverse ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
                             QRect frameRect = option->rect;
 
                             if (reverse)
@@ -1257,9 +1257,9 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
                                                         GTK_SHADOW_NONE, gtkEntry->style, entryPath.toString() + QString::number(focus));
                             }
                             gtkCachedPainter.paintShadow(gtkEntry, comboBox->editable ? "entry" : "frame", frameRect, frameState,
-                                                GTK_SHADOW_IN, gtkEntry->style, entryPath.toString() +
-                                                QString::number(focus) + QString::number(comboBox->editable) +
-                                                QString::number(option->direction)/* + QString::number(frameState)*/);
+                                                   GTK_SHADOW_IN, gtkEntry->style, entryPath.toString() +
+                                                   QString::number(focus) + QString::number(comboBox->editable) +
+                                                   QString::number(option->direction)/* + QString::number(frameState)*/);
                             if (focus)
                                 GTK_WIDGET_UNSET_FLAGS(gtkEntry, GTK_HAS_FOCUS);
                         }
@@ -1275,8 +1275,8 @@ void QMaemo5Style::drawComplexControl(ComplexControl control, const QStyleOption
 
                         Q_ASSERT(gtkToggleButton);
                         gtkCachedPainter.paintBox( gtkToggleButton, "button", arrowButtonRect, buttonState,
-                                            shadow, gtkToggleButton->style, buttonPath.toString() +
-                                            QString::number(focus) + QString::number(option->direction));
+                                             shadow, gtkToggleButton->style, buttonPath.toString() +
+                                             QString::number(focus) + QString::number(option->direction));
                         if (focus)
                             GTK_WIDGET_UNSET_FLAGS(gtkToggleButton, GTK_HAS_FOCUS);
                     }
@@ -1309,9 +1309,9 @@ static QHBoxLayout *findHBoxLayoutContaining(const QWidget *widget, QLayout *lay
     \reimp
 */
 void QMaemo5Style::drawControl(ControlElement element,
-                            const QStyleOption *option,
-                            QPainter *painter,
-                            const QWidget *widget) const
+                               const QStyleOption *option,
+                               QPainter *painter,
+                               const QWidget *widget) const
 {
     Q_D(const QMaemo5Style);
 
@@ -1490,7 +1490,7 @@ void QMaemo5Style::drawControl(ControlElement element,
 
             if (iconRect.isValid()) {
                 QIcon::Mode mode = button->state & State_Enabled ? QIcon::Normal
-                                                            : QIcon::Disabled;
+                                                              : QIcon::Disabled;
                 QIcon::State state = QIcon::Off;
                 if (button->state & State_On)
                     state = QIcon::On;
@@ -1500,7 +1500,7 @@ void QMaemo5Style::drawControl(ControlElement element,
             }
             if (textRect.isValid()) {
                 proxy()->drawItemText(painter, textRect, tf, button->palette, (button->state & State_Enabled),
-                                    button->text, QPalette::ButtonText);
+                                      button->text, QPalette::ButtonText);
             }
             if (valueRect.isValid()) {
                 QPalette pal = button->palette;
@@ -1512,7 +1512,7 @@ void QMaemo5Style::drawControl(ControlElement element,
                 painter->setFont(valuefont);
 
                 proxy()->drawItemText(painter, valueRect, tf, pal, (button->state & State_Enabled),
-                                    button->value, QPalette::ButtonText);
+                                      button->value, QPalette::ButtonText);
                 painter->setFont(oldfont);
             }
         } else if (const QStyleOptionButton *button = qstyleoption_cast<const QStyleOptionButton *>(option)) {
@@ -1524,7 +1524,7 @@ void QMaemo5Style::drawControl(ControlElement element,
                 QPoint point;
 
                 QIcon::Mode mode = button->state & State_Enabled ? QIcon::Normal
-                                                            : QIcon::Disabled;
+                                                              : QIcon::Disabled;
                 QIcon::State state = QIcon::Off;
                 if (button->state & State_On)
                     state = QIcon::On;
@@ -1537,7 +1537,7 @@ void QMaemo5Style::drawControl(ControlElement element,
                     w += button->fontMetrics.boundingRect(option->rect, tf, button->text).width() + 2;
 
                 point = QPoint(ir.x() + ir.width() / 2 - w / 2,
-                            ir.y() + ir.height() / 2 - h / 2);
+                               ir.y() + ir.height() / 2 - h / 2);
 
                 if (button->direction == Qt::RightToLeft)
                     point.rx() += pixmap.width();
@@ -1560,7 +1560,7 @@ void QMaemo5Style::drawControl(ControlElement element,
             if (button->features & QStyleOptionButton::HasMenu)
                 ir = ir.adjusted(0, 0, -pixelMetric(PM_MenuButtonIndicator, button, widget), 0);
             proxy()->drawItemText(painter, ir, tf, button->palette, (button->state & State_Enabled),
-                        button->text, QPalette::ButtonText);
+                         button->text, QPalette::ButtonText);
         }
         break;
 
@@ -1585,14 +1585,14 @@ void QMaemo5Style::drawControl(ControlElement element,
 
                 if (!combo->currentIcon.isNull()) {
                     QIcon::Mode mode = combo->state & State_Enabled ? QIcon::Normal
-                                    : QIcon::Disabled;
+                                       : QIcon::Disabled;
                     QPixmap pixmap = combo->currentIcon.pixmap(combo->iconSize, mode);
                     QRect iconRect(editRect);
                     iconRect.setWidth(combo->iconSize.width() + 4);
 
                     iconRect = alignedRect(combo->direction,
-                                        Qt::AlignLeft | Qt::AlignVCenter,
-                                        iconRect.size(), editRect);
+                                           Qt::AlignLeft | Qt::AlignVCenter,
+                                           iconRect.size(), editRect);
 
                     proxy()->drawItemPixmap(painter, iconRect, Qt::AlignCenter, pixmap);
 
@@ -1621,18 +1621,18 @@ void QMaemo5Style::drawControl(ControlElement element,
                     painter->setPen(QPen(gripShadow, 2));
                     painter->drawLine(
                         QPoint(scrollBarSlider.center().x() + i ,
-                            scrollBarSlider.top() + gripMargin),
+                               scrollBarSlider.top() + gripMargin),
                         QPoint(scrollBarSlider.center().x() + i,
-                            scrollBarSlider.bottom() - gripMargin));
+                               scrollBarSlider.bottom() - gripMargin));
                 }
             } else {
                 for (int i = -size; i < size ; i += 4) {
                     painter->setPen(QPen(gripShadow, 2));
                     painter->drawLine(
                         QPoint(scrollBarSlider.left() + gripMargin ,
-                            scrollBarSlider.center().y()+ i),
+                               scrollBarSlider.center().y()+ i),
                         QPoint(scrollBarSlider.right() - gripMargin,
-                            scrollBarSlider.center().y()+ i));
+                               scrollBarSlider.center().y()+ i));
                 }
             }
         }
@@ -1649,7 +1649,7 @@ void QMaemo5Style::drawControl(ControlElement element,
     \reimp
 */
 QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionComplex *option,
-                                SubControl subControl, const QWidget *widget) const
+                                   SubControl subControl, const QWidget *widget) const
 {
     Q_D(const QMaemo5Style);
     QRect rect;
@@ -1669,10 +1669,10 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
 
             GtkBorder *border = 0;
             GtkWidget *gtkEntry = d->gtkWidget("HildonNumberEditor.GtkEntry");
-        gtk_widget_style_get(gtkEntry, "inner-border", &border, NULL);
+	    gtk_widget_style_get(gtkEntry, "inner-border", &border, NULL);
             int xframe = border->left + gtkEntry->style->xthickness + 10;
             int yframe = border->top + gtkEntry->style->ythickness + 12;
-        gtk_border_free(border);
+	    gtk_border_free(border);
 
             switch (subControl) {
             case SC_SpinBoxFrame:
@@ -1681,8 +1681,8 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
 
             case SC_SpinBoxEditField:
                 rect = QRect(x + frameOffset + xframe, y + yframe,
-                            w - 2 * (frameOffset + xframe),
-                            h - 2 * yframe);
+                             w - 2 * (frameOffset + xframe),
+                             h - 2 * yframe);
                 break;
 
             case SC_SpinBoxUp:
@@ -1704,7 +1704,7 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
         if (const QStyleOptionSlider *scrollbar = qstyleoption_cast<const QStyleOptionSlider *>(option)) {
             const QRect scrollBarRect = scrollbar->rect;
             int maxlen = ((scrollbar->orientation == Qt::Horizontal) ?
-                        scrollBarRect.width() : scrollBarRect.height());
+                          scrollBarRect.width() : scrollBarRect.height());
             int sliderlen;
 
             // calculate slider length
@@ -1722,10 +1722,10 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
             }
 
             int sliderstart = sliderPositionFromValue(scrollbar->minimum,
-                                                    scrollbar->maximum,
-                                                    scrollbar->sliderPosition,
-                                                    maxlen - sliderlen,
-                                                    scrollbar->upsideDown);
+                                                      scrollbar->maximum,
+                                                      scrollbar->sliderPosition,
+                                                      maxlen - sliderlen,
+                                                      scrollbar->upsideDown);
 
             switch (subControl) {
             case SC_ScrollBarSubLine:            // top/left button
@@ -1741,10 +1741,10 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
             case SC_ScrollBarAddPage:            // between bottom/right button and slider
                 if (scrollbar->orientation == Qt::Horizontal)
                     rect.setRect(sliderstart + sliderlen, 0,
-                            maxlen - sliderstart - sliderlen, scrollBarRect.height());
+                              maxlen - sliderstart - sliderlen, scrollBarRect.height());
                 else
                     rect.setRect(0, sliderstart + sliderlen, scrollBarRect.width(),
-                            maxlen - sliderstart - sliderlen);
+                              maxlen - sliderstart - sliderlen);
                 break;
             case SC_ScrollBarGroove:
                 rect = scrollBarRect;
@@ -1778,9 +1778,9 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
 
             // We employ the gtk widget to position arrows and separators for us
             GtkWidget *gtkCombo = d->gtkWidget("hildon-combobox");
-        gtk_widget_set_direction(gtkCombo, (option->direction == Qt::RightToLeft) ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
+	    gtk_widget_set_direction(gtkCombo, (option->direction == Qt::RightToLeft) ? GTK_TEXT_DIR_RTL : GTK_TEXT_DIR_LTR);
             GtkAllocation geometry = {0, 0, qMax(0, option->rect.width()), qMax(0, option->rect.height())};
-        gtk_widget_size_allocate(gtkCombo, &geometry);
+	    gtk_widget_size_allocate(gtkCombo, &geometry);
 
             GtkWidget *arrowWidget = d->gtkWidget("hildon-combobox.hildon-combobox-button");
             GtkWidget *entryWidget = d->gtkWidget("hildon-combobox.HildonEntry-finger");
@@ -1788,8 +1788,8 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
                 return QCleanlooksStyle().subControlRect(control, option, subControl, widget);
 
             QRect buttonRect(option->rect.left() + arrowWidget->allocation.x,
-                            option->rect.top() + arrowWidget->allocation.y,
-                            arrowWidget->allocation.width, arrowWidget->allocation.height);
+                             option->rect.top() + arrowWidget->allocation.y,
+                             arrowWidget->allocation.width, arrowWidget->allocation.height);
 
             switch (subControl) {
 
@@ -1801,9 +1801,9 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
                 rect = visualRect(option->direction, option->rect, rect);
                 int xMargin = 8, yMargin = 12;
                 rect.setRect(option->rect.left() + entryWidget->style->xthickness + xMargin,
-                            option->rect.top()  + entryWidget->style->ythickness + yMargin,
-                            option->rect.width() - buttonRect.width() - 2*(entryWidget->style->xthickness + xMargin),
-                            option->rect.height() - 2*(entryWidget->style->ythickness + yMargin));
+                             option->rect.top()  + entryWidget->style->ythickness + yMargin,
+                             option->rect.width() - buttonRect.width() - 2*(entryWidget->style->xthickness + xMargin),
+                             option->rect.height() - 2*(entryWidget->style->ythickness + yMargin));
                 rect = visualRect(option->direction, option->rect, rect);
                 break;
             }
@@ -1830,7 +1830,7 @@ QRect QMaemo5Style::subControlRect(ComplexControl control, const QStyleOptionCom
     \reimp
 */
 QSize QMaemo5Style::sizeFromContents(ContentsType type, const QStyleOption *option,
-                                const QSize &size, const QWidget *widget) const
+                                  const QSize &size, const QWidget *widget) const
 {
     Q_D(const QMaemo5Style);
 
@@ -1852,19 +1852,19 @@ QSize QMaemo5Style::sizeFromContents(ContentsType type, const QStyleOption *opti
     case CT_LineEdit: {
         if (const QStyleOptionFrameV2 *frame = qstyleoption_cast<const QStyleOptionFrameV2 *>(option)) {
             if (!frame->lineWidth)
-        {
-        // check me !!!
-        return newSize;
-        }
+	    {
+		// check me !!!
+		return newSize;
+	    }
 
             gtkWidget = d->gtkWidget("HildonEntry-finger");
             if (gtkWidget) {
                 newSize = size + 2 * QSize(gtkWidget->style->xthickness, 1 + gtkWidget->style->ythickness);
                 GtkBorder *border = 0;
-        gtk_widget_style_get(gtkWidget, "inner-border", &border, NULL);
+		gtk_widget_style_get(gtkWidget, "inner-border", &border, NULL);
                 if (border) {
                     newSize += QSize(border->left + border->right, border->top + border->bottom + 3);
-            gtk_border_free(border);
+		    gtk_border_free(border);
                 } else {
                     newSize += QSize(4, 7); // default inner-border
                 }
@@ -1914,11 +1914,11 @@ QSize QMaemo5Style::sizeFromContents(ContentsType type, const QStyleOption *opti
             newSize = newSize.expandedTo(QSize(w, h));
 
             GtkBorder *border = 0;
-        gtk_widget_style_get(gtkWidget, "inner-border", &border, NULL);
+	    gtk_widget_style_get(gtkWidget, "inner-border", &border, NULL);
             if (border)
             {
                 newSize += QSize(border->left + border->right,0);
-        gtk_border_free(border);
+		gtk_border_free(border);
             }
             gtkWidget = 0;
         }
@@ -1932,7 +1932,7 @@ QSize QMaemo5Style::sizeFromContents(ContentsType type, const QStyleOption *opti
             if (menuItem->menuItemType == QStyleOptionMenuItem::Separator) {
                 GtkWidget *gtkMenuSeparator = d->gtkWidget("hildon-context-sensitive-menu.GtkSeparatorMenuItem");
                 GtkRequisition sizeReq = {0, 0};
-        gtk_widget_size_request(gtkMenuSeparator, &sizeReq);
+		gtk_widget_size_request(gtkMenuSeparator, &sizeReq);
                 newSize = QSize(size.width(), sizeReq.height);
                 break;
             }
@@ -1944,34 +1944,34 @@ QSize QMaemo5Style::sizeFromContents(ContentsType type, const QStyleOption *opti
             // set a fake text label on the gtkMenuItem
             // But if custom fonts are used on the widget we need a minimum size
             GtkRequisition sizeReq = {0, 0};
-        gtk_widget_size_request(gtkMenuItem, &sizeReq);
+	    gtk_widget_size_request(gtkMenuItem, &sizeReq);
             newSize.setHeight(qMax(newSize.height() - 4, sizeReq.height));
             newSize += QSize(textMargin + style->xthickness - 1, 0);
 
             // Cleanlooks assumes a check column of 20 pixels so we need to
             // expand it a bit
             gint checkSize;
-        gtk_widget_style_get(gtkMenuItem, "indicator-size", &checkSize, NULL);
+	    gtk_widget_style_get(gtkMenuItem, "indicator-size", &checkSize, NULL);
             newSize.setWidth(newSize.width() + qMax(0, checkSize - 20));
         }
         break;
     }
 #ifndef QT_NO_ITEMVIEWS
     case CT_ItemViewItem: {
-        uint rowHeight = 70;
-        if (GtkWidget *gtkTreeView = d->gtkWidget("HildonPannableArea.GtkTreeView"))
-        gtk_widget_style_get(gtkTreeView, "row-height", &rowHeight, NULL);
-        newSize = newSize.expandedTo(QSize(0, rowHeight));
-        break;
+         uint rowHeight = 70;
+         if (GtkWidget *gtkTreeView = d->gtkWidget("HildonPannableArea.GtkTreeView"))
+	     gtk_widget_style_get(gtkTreeView, "row-height", &rowHeight, NULL);
+         newSize = newSize.expandedTo(QSize(0, rowHeight));
+         break;
     }
 #endif // QT_NO_ITEMVIEWS
     case CT_ProgressBar: {
         gint minw = 70, minh = 70;
         if (GtkWidget *gtkProgressBar = d->gtkWidget("GtkProgressBar")) {
-        gtk_widget_style_get(gtkProgressBar,
-                                "min-vertical-bar-width",    &minw,
-                                "min-horizontal-bar-height", &minh,
-                                NULL);
+	    gtk_widget_style_get(gtkProgressBar,
+                                   "min-vertical-bar-width",    &minw,
+                                   "min-horizontal-bar-height", &minh,
+                                   NULL);
         }
         newSize = newSize.expandedTo(QSize(minw, minh));
         break;
@@ -1998,7 +1998,7 @@ QSize QMaemo5Style::sizeFromContents(ContentsType type, const QStyleOption *opti
 
     if (gtkWidget) {
         gint w = -1, h = -1;
-    gtk_widget_get_size_request(gtkWidget, &w, &h);
+	gtk_widget_get_size_request(gtkWidget, &w, &h);
         newSize = newSize.expandedTo(QSize(w, h));
     }
     return newSize;
@@ -2031,10 +2031,10 @@ QRect QMaemo5Style::subElementRect(SubElement element, const QStyleOption *optio
             r.adjust(xt, yt, -xt, -yt);
 
             GtkBorder *border = 0;
-        gtk_widget_style_get(gtkEntry, "inner-border", &border, NULL);
+	    gtk_widget_style_get(gtkEntry, "inner-border", &border, NULL);
             if (border) {
                 r.adjust(border->left, border->top, -border->right, -border->bottom);
-        gtk_border_free(border);
+		gtk_border_free(border);
             } else {
                 r.adjust(2, 2, -2, -2); // default inner-border
             }
@@ -2045,7 +2045,7 @@ QRect QMaemo5Style::subElementRect(SubElement element, const QStyleOption *optio
     case SE_CheckBoxIndicator: {
         int h = proxy()->pixelMetric(PM_IndicatorHeight, option, widget);
         r.setRect(option->rect.x(), option->rect.y() + ((option->rect.height() - h) / 2),
-                proxy()->pixelMetric(PM_IndicatorWidth, option, widget), h);
+                  proxy()->pixelMetric(PM_IndicatorWidth, option, widget), h);
         r = visualRect(option->direction, option->rect, r);
         break;
     }
@@ -2075,7 +2075,7 @@ QRect QMaemo5Style::subElementRect(SubElement element, const QStyleOption *optio
     \reimp
 */
 QStyle::SubControl QMaemo5Style::hitTestComplexControl(ComplexControl cc, const QStyleOptionComplex *opt,
-                            const QPoint &pt, const QWidget *w) const
+                              const QPoint &pt, const QWidget *w) const
 {
     switch (cc) {
     case CC_ScrollBar:
@@ -2118,62 +2118,6 @@ QColor QMaemo5Style::standardColor(const QString &logicalColorName)
     return QColor();
 }
 
-bool QMaemo5Style::isLowContrast(const QColor& colorA, const QColor& colorB)
-{
-    return qAbs(colorA.lightness()-colorB.lightness()) < 128;
-}
-
-void QMaemo5Style::invertColor(QColor& color)
-{
-    color.setRgb(255 - color.red(), 255 - color.green(), 255 - color.blue());
-}
-
-QPalette QMaemo5Style::standardPalette() const
-{
-    QPalette palette = QGtkStyle::standardPalette();
-    
-    QColor base = palette.color(QPalette::Base);
-    QColor baseText = palette.color(QPalette::Text);
-    QColor window = palette.color(QPalette::Window);
-    QColor windowText = palette.color(QPalette::WindowText);
-    QColor button = palette.color(QPalette::Button);
-    QColor buttonText = palette.color(QPalette::ButtonText);
-    
-    if (isLowContrast(base, baseText)) {
-        qWarning()<<"QMaemo5Style: Base color has insufficant contrast with baseText, inverting baseText.";
-        invertColor(baseText);
-    }
-    if (isLowContrast(window, windowText)) {
-        qWarning()<<"QMaemo5Style: Window color has insufficant contrast with windowText, inverting windowText.";
-        invertColor(windowText);
-    }
-    if (isLowContrast(window, baseText)) {
-        qInfo()<<"QMaemo5Style: Window color has low contrast with baseText. "<<
-                "Maemo applciatons rely on this, inverting baseText.";
-        invertColor(baseText);
-        if (isLowContrast(base, baseText))
-            invertColor(base);
-    }
-    if (isLowContrast(base, windowText)) {
-        qInfo()<<"QMaemo5Style: Base color has low contrast with windowText. "<<
-                "Maemo applciatons rely on this, inverting windowText.";
-        invertColor(windowText);
-        if (isLowContrast(window, windowText))
-            invertColor(window);
-    }
-    if (isLowContrast(button, buttonText)) {
-        qWarning()<<"QMaemo5Style: Button color has insufficant contrast with buttonText, inverting buttonText.";
-        invertColor(buttonText);
-    }
-    
-    palette.setColor(QPalette::Base, base);
-    palette.setColor(QPalette::Text, baseText);
-    palette.setColor(QPalette::Window, window);
-    palette.setColor(QPalette::WindowText, windowText);
-    palette.setColor(QPalette::ButtonText, buttonText);
-    
-    return palette;
-}
 
 /*!
     \enum QMaemo5Style::PrimitiveElement
@@ -2233,7 +2177,7 @@ QIcon QMaemo5Style::standardIconImplementation(StandardPixmap standardIcon,
 
 /*! \reimp */
 QPixmap QMaemo5Style::standardPixmap(StandardPixmap standardPixmap, const QStyleOption *opt,
-                    const QWidget *widget) const
+                       const QWidget *widget) const
 {
     switch (standardPixmap) {
     case SP_MediaPlay:
