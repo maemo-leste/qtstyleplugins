@@ -13,7 +13,7 @@ export QT_SELECT := qt5
 
 override_dh_auto_configure:
 	/usr/lib/qt5/bin/syncqt.pl -version 5.1.0
-	qmake CONFIG+=debug #QT_BUILD_PARTS+=tests
+	qmake CONFIG+=debug "QMAKE_CXXFLAGS=$$CXXFLAGS" "QMAKE_CFLAGS=$$CFLAGS" "QMAKE_LDFLAGS=$$LDFLAGS" #QT_BUILD_PARTS+=tests
 
 override_dh_auto_install:
 	dh_auto_install
