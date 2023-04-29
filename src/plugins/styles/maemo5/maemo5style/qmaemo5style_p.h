@@ -75,6 +75,7 @@ public:
     virtual void initGtkMenu() const;
     virtual void initGtkWidgets() const;
     virtual void applyCustomPaletteHash();
+    QPalette gtkWidgetPalette(const QHashableLatin1Literal &gtkWidgetName) const;
 
     static QString getGtkNameFromQtName(const QWidget *widget);
     static GtkWidget * getGtkButtonForWidget(const QWidget *widget);

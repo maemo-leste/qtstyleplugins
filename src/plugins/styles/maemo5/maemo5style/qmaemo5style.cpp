@@ -204,6 +204,29 @@ void QMaemo5StylePrivate::initGtkMenu() const
     GTK_WIDGET_FLAGS(radioButtonRight) |= GTK_MAPPED;
 }
 
+QPalette QMaemo5StylePrivate::gtkWidgetPalette(const QHashableLatin1Literal &gtkWidgetName) const
+{
+
+    QPalette pal = QGtkStylePrivate::gtkWidgetPalette(gtkWidgetName);
+    GtkWidget *gtkWidget = QGtkStylePrivate::gtkWidget(gtkWidgetName);
+    GtkStyle *gtkStyle = gtk_widget_get_style(gtkWidget);
+
+    GdkColor gdkBase = gtkStyle->base[GTK_STATE_NORMAL];
+    GdkColor gdkText = gtkStyle->text[GTK_STATE_NORMAL];
+    GdkColor gdkFg = gtkStyle->fg[GTK_STATE_NORMAL];
+
+    QColor text = QColor(gdkText.red>>8, gdkText.green>>8, gdkText.blue>>8);
+    QColor base(gdkBase.red>>8, gdkBase.green>>8, gdkBase.blue>>8);
+    QColor fg = QColor(gdkFg.red>>8, gdkFg.green>>8, gdkFg.blue>>8);
+
+    pal.setBrush(QPalette::Base, base);
+    pal.setBrush(QPalette::Text, text);
+    pal.setBrush(QPalette::WindowText, fg);
+    pal.setBrush(QPalette::ButtonText, fg);
+
+    return pal;
+}
+
 void QMaemo5StylePrivate::applyCustomPaletteHash()
 {
     QGtkStylePrivate::applyCustomPaletteHash();
