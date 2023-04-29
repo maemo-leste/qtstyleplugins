@@ -1,3 +1,9 @@
+qtstyleplugins-src (1:5.1.7-1) unstable; urgency=low
+
+  * Maemo5: fix wrong colors in some widgets
+
+ -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Mon, 01 May 2023 15:18:41 +0300
+
 qtstyleplugins-src (1:5.1.6-1) unstable; urgency=low
 
   * Chimaera import
