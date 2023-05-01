@@ -204,29 +204,6 @@ void QMaemo5StylePrivate::initGtkMenu() const
     GTK_WIDGET_FLAGS(radioButtonRight) |= GTK_MAPPED;
 }
 
-QPalette QMaemo5StylePrivate::gtkWidgetPalette(const QHashableLatin1Literal &gtkWidgetName) const
-{
-
-    QPalette pal = QGtkStylePrivate::gtkWidgetPalette(gtkWidgetName);
-    GtkWidget *gtkWidget = QGtkStylePrivate::gtkWidget(gtkWidgetName);
-    GtkStyle *gtkStyle = gtk_widget_get_style(gtkWidget);
-
-    GdkColor gdkBase = gtkStyle->base[GTK_STATE_NORMAL];
-    GdkColor gdkText = gtkStyle->text[GTK_STATE_NORMAL];
-    GdkColor gdkFg = gtkStyle->fg[GTK_STATE_NORMAL];
-
-    QColor text = QColor(gdkText.red>>8, gdkText.green>>8, gdkText.blue>>8);
-    QColor base(gdkBase.red>>8, gdkBase.green>>8, gdkBase.blue>>8);
-    QColor fg = QColor(gdkFg.red>>8, gdkFg.green>>8, gdkFg.blue>>8);
-
-    pal.setBrush(QPalette::Base, base);
-    pal.setBrush(QPalette::Text, text);
-    pal.setBrush(QPalette::WindowText, fg);
-    pal.setBrush(QPalette::ButtonText, fg);
-
-    return pal;
-}
-
 void QMaemo5StylePrivate::applyCustomPaletteHash()
 {
     QGtkStylePrivate::applyCustomPaletteHash();
@@ -245,8 +222,17 @@ void QMaemo5StylePrivate::applyCustomPaletteHash()
     calendarpalette.setColor(QPalette::AlternateBase, base.lighter(250));
     QApplication::setPalette(calendarpalette, "QCalendarWidget");
 
-    qApp->setPalette(gtkWidgetPalette("HildonPannableArea.GtkTreeView"), "QScrollBar");
-    qApp->setPalette(gtkWidgetPalette("HildonPannableArea.GtkTreeView"), "QAbstractScrollArea");
+    QPalette treeviewpalette = gtkWidgetPalette("HildonPannableArea.GtkTreeView");
+    GtkStyle *gtkStyle = gtk_widget_get_style(gtkWidget("HildonPannableArea.GtkTreeView"));
+    GdkColor gdkBase = gtkStyle->base[GTK_STATE_NORMAL];
+    GdkColor gdkText = gtkStyle->text[GTK_STATE_NORMAL];
+    QColor text = QColor(gdkText.red>>8, gdkText.green>>8, gdkText.blue>>8);
+    base = QColor(gdkBase.red>>8, gdkBase.green>>8, gdkBase.blue>>8);
+    treeviewpalette.setBrush(QPalette::Base, base);
+    treeviewpalette.setBrush(QPalette::Text, text);
+    qApp->setPalette(treeviewpalette, "QScrollBar");
+    qApp->setPalette(treeviewpalette, "QAbstractScrollArea");
+
     if (gtkWidget("HildonNote-information-theme-portrait.GtkAlignment.GtkHBox.GtkVBox.GtkEventBox.GtkAlignment.GtkVBox.HildonNoteLabel-information-theme")) {
         qApp->setPalette(gtkWidgetPalette("HildonNote-information-theme-portrait.GtkAlignment.GtkHBox.GtkVBox.GtkEventBox.GtkAlignment.GtkVBox.HildonNoteLabel-information-theme"),
             "QMaemo5InformationBox");
