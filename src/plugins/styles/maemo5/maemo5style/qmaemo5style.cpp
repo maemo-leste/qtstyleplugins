@@ -213,7 +213,6 @@ void QMaemo5StylePrivate::applyCustomPaletteHash()
     qApp->setPalette(textpalette, "QLineEdit");
     qApp->setPalette(textpalette, "QTextEdit");
     qApp->setPalette(textpalette, "QPlainTextEdit");
-    qApp->setPalette(textpalette, "QWebView");
 
     QPalette calendarpalette = QApplication::palette();
     QColor high = calendarpalette.color(QPalette::Highlight);
@@ -224,14 +223,19 @@ void QMaemo5StylePrivate::applyCustomPaletteHash()
 
     QPalette treeviewpalette = gtkWidgetPalette("HildonPannableArea.GtkTreeView");
     GtkStyle *gtkStyle = gtk_widget_get_style(gtkWidget("HildonPannableArea.GtkTreeView"));
+
     GdkColor gdkBase = gtkStyle->base[GTK_STATE_NORMAL];
     GdkColor gdkText = gtkStyle->text[GTK_STATE_NORMAL];
+
     QColor text = QColor(gdkText.red>>8, gdkText.green>>8, gdkText.blue>>8);
     base = QColor(gdkBase.red>>8, gdkBase.green>>8, gdkBase.blue>>8);
+
     treeviewpalette.setBrush(QPalette::Base, base);
     treeviewpalette.setBrush(QPalette::Text, text);
+
     qApp->setPalette(treeviewpalette, "QScrollBar");
-    qApp->setPalette(treeviewpalette, "QAbstractScrollArea");
+    qApp->setPalette(treeviewpalette, "QAbstractItemView");
+    qApp->setPalette(treeviewpalette, "QScrollArea");
 
     if (gtkWidget("HildonNote-information-theme-portrait.GtkAlignment.GtkHBox.GtkVBox.GtkEventBox.GtkAlignment.GtkVBox.HildonNoteLabel-information-theme")) {
         qApp->setPalette(gtkWidgetPalette("HildonNote-information-theme-portrait.GtkAlignment.GtkHBox.GtkVBox.GtkEventBox.GtkAlignment.GtkVBox.HildonNoteLabel-information-theme"),
