@@ -146,8 +146,6 @@ public:
     void polish(QWidget *widget);
     void unpolish(QWidget *widget);
 
-    void showScrollIndicators(QAbstractScrollArea *);
-
 protected Q_SLOTS:
     QIcon standardIconImplementation(StandardPixmap standardIcon, const QStyleOption *option,
                                      const QWidget *widget = 0) const;

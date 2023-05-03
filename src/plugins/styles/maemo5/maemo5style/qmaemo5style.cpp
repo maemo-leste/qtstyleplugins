@@ -57,6 +57,7 @@
 #include <QtWidgets/QAbstractItemView>
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QScrollBar>
+#include <QtWidgets/QScroller>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTextBrowser>
@@ -454,10 +455,14 @@ ScrollBarFader::ScrollBarFader(QAbstractScrollArea *area, int delay, int duratio
     m_delay_timer = new QTimer(this);
     m_delay_timer->setInterval(delay);
     connect(m_delay_timer, SIGNAL(timeout()), this, SLOT(delayTimeout()));
+    area->installEventFilter(this);
+    area->viewport()->installEventFilter(this);
 }
 
 ScrollBarFader::~ScrollBarFader()
 {
+    m_area->viewport()->removeEventFilter(this);
+    m_area->removeEventFilter(this);
 }
 
 
@@ -501,17 +506,26 @@ void ScrollBarFader::show()
     m_delay_timer->start();
 }
 
-/*!
-    \internal
-*/
-void QMaemo5Style::showScrollIndicators(QAbstractScrollArea *area)
-{
-    Q_D(QMaemo5Style);
 
-    if (area) {
-        if (ScrollBarFader *fader = d->scrollBarFaders.value(area))
-            fader->show();
+bool ScrollBarFader::eventFilter(QObject *obj, QEvent *ev)
+{
+    if (m_area->isEnabled()) {
+        if (m_area == obj) {
+            switch (ev->type()) {
+            case QEvent::Show:
+            case QEvent::ScrollPrepare:
+            case QEvent::Scroll: {
+                show();
+                break;
+            }
+            default:
+                break;
+            }
+        } else if(ev->type() == QEvent::Wheel)
+            show();
     }
+
+    return QObject::eventFilter(obj, ev);
 }
 
 /*!
@@ -537,6 +551,8 @@ void QMaemo5Style::polish(QWidget *widget)
                 itemview->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
                 itemview->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
             }
+
+            QScroller::grabGesture(area, QScroller::LeftMouseButtonGesture);
         }
     } else if (qobject_cast<QCommandLinkButton*>(widget)) {
         widget->setFont(standardFont(QLS("SystemFont")));

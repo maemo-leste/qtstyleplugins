@@ -131,6 +131,9 @@ private:
     QTimeLine *m_fade_timeline;
     QTimer *m_delay_timer;
     qreal m_current_alpha;
+
+protected:
+    bool eventFilter(QObject *obj, QEvent *ev) override;
 };
 
 QT_END_NAMESPACE
