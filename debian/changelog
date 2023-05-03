@@ -1,3 +1,9 @@
+qtstyleplugins-src (1:5.1.11-1) unstable; urgency=low
+
+  * maemo5: Fix segfault on widget being destroyed
+
+ -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Wed, 03 May 2023 14:37:34 +0300
+
 qtstyleplugins-src (1:5.1.10-1) unstable; urgency=low
 
   * maemo5: QGraphicsView: set correct palette
