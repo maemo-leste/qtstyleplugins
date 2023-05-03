@@ -236,6 +236,7 @@ void QMaemo5StylePrivate::applyCustomPaletteHash()
     qApp->setPalette(treeviewpalette, "QScrollBar");
     qApp->setPalette(treeviewpalette, "QAbstractItemView");
     qApp->setPalette(treeviewpalette, "QScrollArea");
+    qApp->setPalette(treeviewpalette, "QGraphicsView");
 
     if (gtkWidget("HildonNote-information-theme-portrait.GtkAlignment.GtkHBox.GtkVBox.GtkEventBox.GtkAlignment.GtkVBox.HildonNoteLabel-information-theme")) {
         qApp->setPalette(gtkWidgetPalette("HildonNote-information-theme-portrait.GtkAlignment.GtkHBox.GtkVBox.GtkEventBox.GtkAlignment.GtkVBox.HildonNoteLabel-information-theme"),
