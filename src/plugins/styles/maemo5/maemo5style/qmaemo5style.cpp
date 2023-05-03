@@ -455,14 +455,10 @@ ScrollBarFader::ScrollBarFader(QAbstractScrollArea *area, int delay, int duratio
     m_delay_timer = new QTimer(this);
     m_delay_timer->setInterval(delay);
     connect(m_delay_timer, SIGNAL(timeout()), this, SLOT(delayTimeout()));
-    area->installEventFilter(this);
-    area->viewport()->installEventFilter(this);
 }
 
 ScrollBarFader::~ScrollBarFader()
 {
-    m_area->viewport()->removeEventFilter(this);
-    m_area->removeEventFilter(this);
 }
 
 
@@ -543,9 +539,12 @@ void QMaemo5Style::polish(QWidget *widget)
         } else {
             area->setFrameStyle(QFrame::NoFrame);
 
-            d->scrollBarFaders.insert(area, new ScrollBarFader(area, d->scrollBarFadeDelay,
-                                                                     d->scrollBarFadeDuration,
-                                                                     d->scrollBarFadeUpdateInterval));
+            ScrollBarFader *fader = new ScrollBarFader(area, d->scrollBarFadeDelay,
+                                                       d->scrollBarFadeDuration,
+                                                       d->scrollBarFadeUpdateInterval);
+            area->installEventFilter(fader);
+            area->viewport()->installEventFilter(fader);
+            d->scrollBarFaders.insert(area, fader);
 
             if (QAbstractItemView *itemview = qobject_cast<QAbstractItemView *>(area)) {
                 itemview->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
@@ -570,7 +569,13 @@ void QMaemo5Style::unpolish(QWidget *widget)
     QGtkStyle::unpolish(widget);
 
     if (QAbstractScrollArea *area = qobject_cast<QAbstractScrollArea*>(widget)) {
-        delete d->scrollBarFaders.take(area);
+        ScrollBarFader *fader = d->scrollBarFaders.take(area);
+
+        if (fader) {
+            area->viewport()->removeEventFilter(fader);
+            area->removeEventFilter(fader);
+            delete fader;
+        }
 
         if (QAbstractItemView *itemview = qobject_cast<QAbstractItemView *>(area))
             itemview->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
