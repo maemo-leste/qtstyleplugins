@@ -1,3 +1,9 @@
+qtstyleplugins-src (1:5.1.13-1) unstable; urgency=low
+
+  * QGtk2Painter: forward-port qt4.8 b235dac554f4b78060c62ff8eef6d6b92c5a7626
+
+ -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Sun, 12 Nov 2023 21:32:11 +0200
+
 qtstyleplugins-src (1:5.1.12-1) unstable; urgency=low
 
   * add maemo5 platform theme plugin
