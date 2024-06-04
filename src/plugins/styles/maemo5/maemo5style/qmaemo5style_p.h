@@ -106,6 +106,7 @@ public:
     static GtkWidget *radioButtonLeft;
     static GtkWidget *radioButtonMiddle;
     static GtkWidget *radioButtonRight;
+    static GtkWidget *radioButtonSingle;
 
 private:
     virtual GtkWidget* getTextColorWidget() const;

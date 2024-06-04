@@ -89,6 +89,7 @@ int QMaemo5StylePrivate::scrollBarFadeUpdateInterval = 100; // [ms] hardcoded in
 GtkWidget *QMaemo5StylePrivate::radioButtonLeft = 0;
 GtkWidget *QMaemo5StylePrivate::radioButtonMiddle = 0;
 GtkWidget *QMaemo5StylePrivate::radioButtonRight = 0;
+GtkWidget *QMaemo5StylePrivate::radioButtonSingle = 0;
 
 //no longer in QGtkPainter, now static in qgtkstyle.cpp, so static here, too
 static GtkStateType qt_gtk_state(const QStyleOption *option)
@@ -203,6 +204,17 @@ void QMaemo5StylePrivate::initGtkMenu() const
     radioButtonRight->allocation.x = 2;
     radioButtonRight->allocation.y = 0;
     GTK_WIDGET_FLAGS(radioButtonRight) |= GTK_MAPPED;
+
+    GtkWidget *gtkMenu3 = hildon_app_menu_new();
+    radioButtonSingle = gtk_radio_button_new(NULL);
+    gtk_widget_show(radioButtonSingle); // only a visible button is really added.
+    hildon_app_menu_add_filter( (HildonAppMenu*)gtkMenu3, (GtkButton*)radioButtonSingle);
+
+    addAllSubWidgets(gtkMenu3);
+
+    radioButtonSingle->allocation.x = 0;
+    radioButtonSingle->allocation.y = 0;
+    GTK_WIDGET_FLAGS(radioButtonSingle) |= GTK_MAPPED;
 }
 
 void QMaemo5StylePrivate::applyCustomPaletteHash()
@@ -1398,7 +1410,9 @@ void QMaemo5Style::drawControl(ControlElement element,
 
                     GtkWidget *gtkButton = 0;
                     int pos = buttonList.indexOf(qobject_cast<const QRadioButton *>(widget));
-                    if (pos == 0)
+                    if (buttonList.count() == 1)
+                        gtkButton = d->radioButtonSingle;
+                    else if (pos == 0)
                         gtkButton = d->radioButtonLeft;
                     else if (pos == buttonList.count() - 1)
                         gtkButton = d->radioButtonRight;
